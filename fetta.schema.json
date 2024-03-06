@@ -1,0 +1,98 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "definitions": {
+    "item": {
+      "title": "Slice",
+      "additionalProperties": false,
+      "type": "object",
+      "patternProperties": {
+        "^//|#$": {
+          "$comment": "Comments are ignored for rules resolution but may be used in logging.",
+          "description": "Comment, ignored by resolver.",
+          "type": "string"
+        },
+        "^x-[a-z0-9_-]+$": {
+          "description": "Extension values.",
+          "examples": ["x-foo", "x-bar"],
+          "type": "string"
+        }
+      },
+      "properties": {
+        "$env": {
+          "description": "Environment to which the slice applies, ignored if empty or null, otherwise matches against the supplied env value.",
+          "examples": [null, "off", "prod", "dev", "uat", "unstable"],
+          "minimum": 3,
+          "type": ["null", "string"]
+        },
+        "alias": {
+          "$comment": "Alias must align with the production rules of XML names as per https://www.w3.org/TR/REC-xml/#NT-Name - so that the alias can be used in production facing XML/HTML easily. If not provided, should default to `a-0001` with a zero based index in place of the number, with the `a` portion being replaced by the first alias if present on the file.",
+          "title": "Alias",
+          "description": "Used as a structured reference for data output and logging.",
+          "minimum": 3,
+          "pattern": "^(?!xml)(?!.*:)(?=.*[a-z])[a-z0-9-]+$",
+          "type": "string"
+        },
+        "conditions": {
+          "additionalItems": false,
+          "title": "Conditions",
+          "description": "Array of RDF like triples with property, condition, value to match.",
+          "default": [],
+          "examples": [[["day", "in", ["saturday", "sunday"]]]],
+          "items": {
+            "additionalItems": false,
+            "items": [
+              {
+                "description": "Property to match against.",
+                "type": "string",
+                "minimum": 1
+              },
+              {
+                "description": "Operator to use for matching.",
+                "enum": ["has", "is", "in", "!has", "!is", "!in"],
+                "maximum": 2,
+                "minimum": 3,
+                "type": "string"
+              },
+              {
+                "default": null,
+                "description": "Value to match against.",
+                "anyOf": [
+                  { "type": "boolean" },
+                  { "type": "null" },
+                  { "type": "string" },
+                  { "type": "number" },
+                  { "type": "integer" },
+                  {
+                    "type": "array",
+                    "items": {
+                      "type": ["boolean", "integer", "null", "number", "string"]
+                    }
+                  }
+                ]
+              }
+            ],
+            "type": "array"
+          },
+          "type": "array"
+        },
+        "match": {
+          "title": "Match",
+          "description": "Kind of matching to do against all conditions to determine if value will be applied.",
+          "default": "all",
+          "type": "string",
+          "enum": ["all", "any", "nul", "one"]
+        },
+        "value": {
+          "type": "object"
+        }
+      },
+      "required": ["value"]
+    }
+  },
+  "type": "array",
+  "minItems": 1,
+  "additionalItems": false,
+  "items": {
+    "$ref": "#/definitions/item"
+  }
+}

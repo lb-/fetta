@@ -1,0 +1,29 @@
+[
+  {
+    "//": "Another comment",
+    "alias": "example",
+    "value": {
+      "coffee": "espresso"
+    },
+    "x-meta": "anything"
+  },
+  {
+    "#": "Some other comment",
+    "conditions": [
+      ["day", "in", ["saturday", "sunday"]],
+      ["time", "is", "afternoon"]
+    ],
+    "match": "one",
+    "value": {
+      "coffee": "flat_white"
+    }
+  },
+  {
+    "//": "Testing out extra coffee in the day.",
+    "$env": "unstable",
+    "conditions": [["time", "is", "morning"]],
+    "value": {
+      "coffee": "doppio"
+    }
+  }
+]

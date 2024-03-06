@@ -1,0 +1,10 @@
+{
+  "json.schemas": [
+    {
+      "fileMatch": ["/examples/*.json", "!/examples/*.test.json"],
+
+      "url": "./fetta.schema.json"
+    }
+  ],
+  "cSpell.words": ["doppio", "fetta"]
+}

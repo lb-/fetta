@@ -1,0 +1,33 @@
+[
+  {
+    "$comment": "Providing a default value when property is not in input.",
+    "data": {},
+    "input": {},
+    "output": { "coffee": "espresso" }
+  },
+  {
+    "$comment": "Overriding the value in the input with the default value.",
+    "data": {},
+    "input": { "coffee": null, "small": true },
+    "output": { "coffee": "espresso", "small": true }
+  },
+  {
+    "$comment": "Overriding the value with a match (is).",
+    "data": { "time": "afternoon" },
+    "input": { "coffee": null },
+    "output": { "coffee": "flat_white" }
+  },
+  {
+    "$comment": "Overriding the value with a match (in).",
+    "data": { "day": "saturday" },
+    "input": { "coffee": null },
+    "output": { "coffee": "flat_white" }
+  },
+  {
+    "$comment": "Overriding the value based on environment.",
+    "$env": "unstable",
+    "data": { "time": "morning" },
+    "input": { "coffee": null },
+    "output": { "coffee": "doppio" }
+  }
+]

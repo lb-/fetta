@@ -1,0 +1,30 @@
+{
+  "name": "fetta",
+  "version": "0.0.1",
+  "description": "A JSON scheme for rules based configuration resolution.",
+  "main": "index.js",
+  "directories": {
+    "example": "examples"
+  },
+  "scripts": {
+    "test": "vitest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lb-/fetta.git"
+  },
+  "keywords": [
+    "rules",
+    "json"
+  ],
+  "author": "LB Johnston",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lb-/fetta/issues"
+  },
+  "homepage": "https://github.com/lb-/fetta#readme",
+  "devDependencies": {
+    "prettier": "3.2.5",
+    "vitest": "1.3.1"
+  }
+}
